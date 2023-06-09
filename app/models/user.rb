@@ -8,7 +8,7 @@
 #  encrypted_password     :string           default(""), not null
 #  likes_count            :integer
 #  photos_count           :integer          default(0)
-#  private                :boolean
+#  private                :boolean          default(TRUE)
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
@@ -33,7 +33,7 @@ class User < ApplicationRecord
 
   has_many :own_photos, class_name: "Photo", foreign_key: "owner_id"
   has_many :liked_photos, through: :likes, source: :photo
-  
+
   has_many :likes, foreign_key: :fan_id
 
   has_many :sent_follow_requests, class_name: "FollowRequest", foreign_key: :sender_id
@@ -49,4 +49,6 @@ class User < ApplicationRecord
   has_many :feed, through: :leaders, source: :own_photos
 
   has_many :discover, through: :leaders, source: :liked_photos 
+
+  validates :username, pressence: true, uniqueness: true
 end
