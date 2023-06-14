@@ -31,5 +31,5 @@ class Photo < ApplicationRecord
 
   validates :caption, presence: true
 
-  validate :image, presence: true
+  validates :image, presence: true
 end
