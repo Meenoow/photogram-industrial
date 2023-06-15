@@ -4,6 +4,9 @@ task sample_data: [:environment] do
   if Rails.env.development?
     FollowRequest.destroy_all
     User.destroy_all
+    Comment.destroy_all
+    Photo.destroy_all
+    Like.destroy_all
   end
 
   12.times do
@@ -16,7 +19,6 @@ task sample_data: [:environment] do
     )
     #p u.errors.full_messages
   end
-  p "#{User.count} users have been created"
 
   users = User.all
 
@@ -58,7 +60,9 @@ task sample_data: [:environment] do
         end
       end
     end 
+  end
   
+  starting = Time.now
   ending = Time.now
   p "It took #{(ending - starting).to_i} seconds to create sample data."
   p "There are now #{User.count} users." 
@@ -66,5 +70,5 @@ task sample_data: [:environment] do
   p "There are now #{Photo.count} photos."
   p "There are now #{Like.count} likes."
   p "There are now #{Comment.count} comments."
-  end
 end
+    
